@@ -10,6 +10,7 @@ import { UserService } from './user.service';
   ],
   controllers: [UserController],
   providers: [UserService],
+  // Exported to be use by auth.module.ts to avoid circular imports issue
   exports: [UserService]
 })
 export class UserModule {}
