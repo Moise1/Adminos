@@ -23,5 +23,5 @@ export class User{
 
     @Column()
     @Exclude()
-    confirmPassword: string;
+    confirmPassword?: string;
 }
