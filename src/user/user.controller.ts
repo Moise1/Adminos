@@ -9,10 +9,9 @@ import {
     Delete,
     UseGuards, 
     UseInterceptors, 
-    Res
+    Query
 } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { Response } from 'express';
 import { AuthGuard } from '../auth/auth.guard';
 import { User } from './models/user.entity';
 import { UserCreateDto } from './dto/user-create.dto';
@@ -26,14 +25,19 @@ export class UserController {
     constructor(private userService: UserService){}
 
     @Get()
-    all(): Promise<User[]>{
-        return this.userService.all();
+    all(@Query('page') page: number = 1): Promise<User[]>{
+        return this.userService.paginate(page);
     };
 
     @Post()
     async create(@Body() body: UserCreateDto): Promise<User>{
         const password = await bcrypt.hash('1234', 12);
-        return this.userService.create({...body, password, confirmPassword: password});
+        const {role_id, ...rest} = body;
+        return this.userService.create({
+            ...rest,
+            password,
+            role: {id: role_id}
+        });
     };
 
     @Get(':id')
