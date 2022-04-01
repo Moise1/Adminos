@@ -10,6 +10,6 @@ import { jwtConstants } from '../auth/constants';
           }),
     ],
 
-    exports: [JwtModule]
+    exports: [JwtModule],
 })
 export class CommonModule {}

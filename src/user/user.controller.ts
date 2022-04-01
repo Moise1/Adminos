@@ -25,7 +25,7 @@ export class UserController {
     constructor(private userService: UserService){}
 
     @Get()
-    all(@Query('page') page: number = 1): Promise<User[]>{
+    all(@Query('page') page: number = 1){
         return this.userService.paginate(page);
     };
 
