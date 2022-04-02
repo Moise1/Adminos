@@ -17,7 +17,7 @@ import { Request, Response } from 'express';
 import { UserService } from 'src/user/user.service';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
-import { RegisterDto } from './models/register.dto';
+import { RegisterDto } from './model/register.dto';
 
 @UseInterceptors(ClassSerializerInterceptor)
 @Controller()

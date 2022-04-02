@@ -1,6 +1,7 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
+// Guard to check for  valid creds for user authentication
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(private jwtService: JwtService){}

@@ -32,7 +32,7 @@ export abstract class AbstractService {
     
       async findOne(condition, relations = []): Promise<any> {
         const user = await this.repository.findOne(condition, {relations});
-        if (!user) throw new NotFoundException('user not found');
+        if (!user) throw new NotFoundException('resource not found');
         return user;
       }
     
@@ -42,7 +42,7 @@ export abstract class AbstractService {
     
       async delete(id: number): Promise<any> {
         const user = await this.repository.findOne(id);
-        if (!user) throw new NotFoundException('user not found');
+        if (!user) throw new NotFoundException('resource not found');
         return this.repository.delete(id);
       }
 }

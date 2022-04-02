@@ -15,7 +15,7 @@ import {
 } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { AuthGuard } from '../auth/auth.guard';
-import { User } from './models/user.entity';
+import { User } from './model/user.entity';
 import { UserCreateDto } from './dto/user-create.dto';
 import { UserUpdateDto } from './user-update.dto';
 import { UserService } from './user.service';
