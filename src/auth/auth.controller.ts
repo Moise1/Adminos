@@ -16,6 +16,7 @@ import * as bcrypt from 'bcrypt';
 import { Request, Response } from 'express';
 import { UserService } from 'src/user/user.service';
 import { AuthGuard } from './auth.guard';
+import { AuthService } from './auth.service';
 import { RegisterDto } from './models/register.dto';
 
 @UseInterceptors(ClassSerializerInterceptor)
@@ -24,12 +25,12 @@ export class AuthController {
   constructor(
     private userService: UserService,
     private jwtService: JwtService,
+    private authService: AuthService
   ) {}
 
   @Post('register')
   async register(@Body() body: RegisterDto) {
-    if (body.password !== body.confirmPassword)
-      throw new BadRequestException("Passwords don't match.");
+    if (body.password !== body.confirmPassword) throw new BadRequestException("Passwords don't match.");
     const hashedPswd = await bcrypt.hash(body.password, 12);
     return this.userService.create({
       ...body,
@@ -54,9 +55,8 @@ export class AuthController {
   @UseGuards(AuthGuard)
   @Get('user')
   async user(@Req() request: Request){
-      const cookie = request.cookies['jwt'];
-      const data = await this.jwtService.verifyAsync(cookie);
-      return this.userService.findOne({id: data.id});
+      const  id = await this.authService.userId(request);
+      return this.userService.findOne({id});
   };
 
   @UseGuards(AuthGuard)

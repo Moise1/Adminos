@@ -9,7 +9,7 @@ import { User } from './models/user.entity';
 export class UserService extends AbstractService{
   constructor(
     @InjectRepository(User)
-    private readonly userRepository: Repository<User>
+    readonly userRepository: Repository<User>
   ) {
     super(userRepository)
   }
