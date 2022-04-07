@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import {Exclude} from 'class-transformer';
-import {Role} from '../../role/role.entity'
+import {Role} from '../role/role.entity'
 
 
 @Entity('users')

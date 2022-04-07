@@ -7,6 +7,10 @@ import { RoleModule } from './role/role.module';
 import { PermissionModule } from './permission/permission.module';
 import { ProductModule } from './product/product.module';
 import { UploadController } from './product/upload.controller';
+import { OrderModule } from './order/order.module';
+import { APP_GUARD } from '@nestjs/core';
+import { PermissionGuard } from './permission/permission.guard';
+import { RoleService } from './role/role.service';
 
 @Module({
   imports: [
@@ -22,11 +26,19 @@ import { UploadController } from './product/upload.controller';
       synchronize: true,
     }),
     AuthModule,
-    CommonModule,
+    CommonModule, 
     RoleModule,
     PermissionModule,
     ProductModule,
+    OrderModule,
   ],
   controllers: [UploadController],
+  providers: [
+    {
+      // This helps us use the PermissionGuard project-wide. i.e: on each controller.
+      provide: APP_GUARD,
+      useClass: PermissionGuard,
+    },
+  ],
 })
 export class AppModule {}
